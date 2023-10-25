@@ -19,6 +19,8 @@ from email.mime.application import MIMEApplication
 from selenium.webdriver.chrome.options import Options
 import pytz
 from utils import logger
+import requests
+import sys
 
 
 file_name_result = f"Мониторинг UI элементов МАРМ4 ({datetime.now().strftime('%Y%m%d_%H%M%S')}).txt"
@@ -78,6 +80,8 @@ def get_page_data_from_files(folder_path):
 # функция проверки элементов на странице
 def navigate_to_auth_page(driver, logger_app):
     auth_form_locator = (By.XPATH, '//*[@id="root"]/div/div[1]/main/div/form')
+    auth_success_url = "https://marm.nalog.gov.ru:9085/marm/map-clean"  # Ожидаемая часть URL после успешной авторизации
+
     try:
         driver.get(auth_url)
         waiter = WebDriverWait(driver, timeout=10)
@@ -86,10 +90,19 @@ def navigate_to_auth_page(driver, logger_app):
         auth_form.find_element(By.ID, "password").send_keys("8zq8=JRxOC$/Qe+")
         auth_form.find_element(By.XPATH, "//button[@type='submit']").click()
         time.sleep(3)
-        logger_app.info("Форма авторизации заполнена", mark=True)
+
+        # Проверка успешности авторизации
+        current_url = driver.current_url
+        if current_url.startswith(auth_success_url):
+            logger_app.info("Авторизация успешно выполнена.", mark=True)
+            return True
+        else:
+            logger_app.error("Авторизация не пройдена! Проверьте работу МАРМ-4 и аутентификацию.", mark=True)
+            logger_app.error(f"Текущий URL: {current_url}")
+            return False
     except TimeoutException:
-        logger_app.error(f"Переход на страницу авторизации - НЕ ОСУЩЕСТВЛЕН, ПРОВЕРЬТЕ РАБОТОСПОСОБНОСТЬ МАРМ-4", mark=True)
         logger_app.error("Форма авторизации не отображена! Необходимо проверить работоспособность МАРМ-4", mark=True)
+        return False
 
 def navigate_and_check_element(driver, page_data, logger_app):
     url = page_data[0].get("url")
@@ -130,6 +143,17 @@ def navigate_and_check_element(driver, page_data, logger_app):
         except ValueError as e:
             logger_app.error(str(e))
 
+# Функция проверки соединения с сайтом
+def check_website_connection(url, logger_app):
+    try:
+        response = requests.get(url, timeout=CONNECTION_TIMEOUT)
+        response.raise_for_status()
+        logger_app.info(f"Соединение с сайтом {url} успешно установлено.", mark=True)
+        return True
+    except requests.exceptions.RequestException as e:
+        logger_app.error(f"Ошибка при установлении соединения с сайтом {url}: {str(e)}", mark=True)
+        return False
+
 
 
 if __name__ == "__main__":
@@ -148,12 +172,20 @@ if __name__ == "__main__":
     file_name_result = f"Мониторинг UI элементов МАРМ4 {date_time} (Московское время).txt"
     logger_app = logger.get_logger(file_name_result)
 
+    # Проверка соединения с тестируемым сайтом
+    if not check_website_connection(auth_url, logger_app):
+        # Запись информации об ошибке и отправка по электронной почте
+        logger_app.error("Соединение с сайтом не было установлено. Проверьте работоспособность сайта.")
+        send_email(sender_email, sender_password, receiver_email, subject, file_name_result)
+        sys.exit(1)
+
     # Запуск браузера
     options = webdriver.ChromeOptions()
     driver = webdriver.Chrome(options=options)
 
     # Переход на страницу авторизации и авторизация
-    navigate_to_auth_page(driver, logger_app)
+    if not navigate_to_auth_page(driver, logger_app):
+        sys.exit()
 
     # Проход по каждой странице и проверка элемента
     for page in pages:
@@ -162,10 +194,13 @@ if __name__ == "__main__":
     # Закрытие браузера
     driver.quit()
 
+
     # Сводная информация о проверках
     logger_app.info(f"\nВсего тестов: {logger.COUNTER_FULL}.")
     logger_app.info(f"Успешных тестов: {logger.COUNTER_SUCCESS}.", mark=True, counter=False)
     logger_app.error(f"Провальных тестов: {logger.COUNTER_ERROR}.", mark=True, counter=False)
+
+    send_email(sender_email, sender_password, receiver_email, subject, file_name_result)
 
 
 
