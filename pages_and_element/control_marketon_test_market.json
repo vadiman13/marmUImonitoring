@@ -1,0 +1,32 @@
+[
+  {
+    "url": "https://marm.nalog.gov.ru:9085/marketon/#/market/2684",
+    "page_name": "Контроль-Рынки-Страница тестового рынка (ОРПЦ \"ФУД СИТИ\")",
+    "elements": [
+      {
+        "locator": "xpath#//div[@class='page__content-header-title' and contains(text(), 'ОРПЦ \"ФУД СИТИ\"')]",
+        "name": "Заголовок рынка отображен (ИНН и наименование арендатора)"
+      },
+      {
+        "locator": "class_name#market-section",
+        "name": "Плашка с инфо о рынке"
+      },
+      {
+        "locator": "class_name#totals",
+        "name": "Плашка статистики рынка"
+      },
+      {
+        "locator": "class_name#risk-section__outer",
+        "name": "Панель выбора риска арендаторов"
+      },
+      {
+        "locator": "xpath#//div[contains(@class, \"filters\") and contains(@class, \"filters--market\")]",
+        "name": "Панель фильтрации арендаторов"
+      },
+      {
+        "locator": "class_name#table",
+        "name": "Таблица арендаторов"
+      }
+    ]
+  }
+]

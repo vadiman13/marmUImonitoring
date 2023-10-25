@@ -1,0 +1,28 @@
+[
+  {
+    "url": "https://marm.nalog.gov.ru:9085/marketon/#/37/info",
+    "page_name": "Контроль-Рынки-Страница тестового оператора (ООО \"АТТ ГРУПП\")-Общая информация",
+    "elements": [
+      {
+        "locator": "class_name#page__content-header-title",
+        "name": "Заголовок карточки оператора рынка"
+      },
+      {
+        "locator": "class_name#tabs",
+        "name": "Селектор переключения вкладок карточки оператора рынка"
+      },
+      {
+        "locator": "class_name#info",
+        "name": "Плашка с инфо об операторе"
+      },
+      {
+        "locator": "class_name#totals",
+        "name": "Плашка статистики оператора"
+      },
+      {
+        "locator": "class_name#horizontal-table__row",
+        "name": "Таблица рынков оператора"
+      }
+    ]
+  }
+]

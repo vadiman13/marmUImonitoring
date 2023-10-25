@@ -1,0 +1,20 @@
+[
+  {
+    "url": "https://marm.nalog.gov.ru:9085/marketon/#/37/renters",
+    "page_name": "Контроль-Рынки-Страница тестового оператора (ООО \"АТТ ГРУПП\")-Арендаторы",
+    "elements": [
+      {
+        "locator": "class_name#renters-info",
+        "name": "Блок рисков по рынкам"
+      },
+      {
+        "locator": "css_selector#div.filters.filters--market",
+        "name": "Панель фильтрации арендаторов"
+      },
+      {
+        "locator": "class_name#table",
+        "name": "Таблица арендаторов"
+      }
+    ]
+  }
+]
