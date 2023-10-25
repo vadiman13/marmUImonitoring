@@ -36,6 +36,10 @@ receiver_email = ["kotyukovvv@rambler.ru"]
 receiver_email_string = ", ".join(receiver_email)
 subject = f"{'🔵' if not logger.COUNTER_ERROR else '🔴'} Мониторинг UI элементов МАРМ4"
 
+moscow_tz = pytz.timezone('Europe/Moscow')
+now = datetime.now(moscow_tz)
+date_time = now.strftime("%d/%m/%Y %H:%M:%S")
+
 
 # Функция отправки сообщений
 def send_email(sender_email, sender_password, receiver_email, subject, file_name):
@@ -80,7 +84,7 @@ def get_page_data_from_files(folder_path):
 # функция проверки элементов на странице
 def navigate_to_auth_page(driver, logger_app):
     auth_form_locator = (By.XPATH, '//*[@id="root"]/div/div[1]/main/div/form')
-    auth_success_url = "https://marm.nalog.gov.ru:9085/marm/map-clean"  # Ожидаемая часть URL после успешной авторизации
+    auth_success_url = "https://marm.nalog.gov.ru:9085/marm/"  # Ожидаемая часть URL после успешной авторизации
 
     try:
         driver.get(auth_url)
@@ -155,7 +159,6 @@ def check_website_connection(url, logger_app):
         return False
 
 
-
 if __name__ == "__main__":
     folder_path = "pages_and_element"
     pages = get_page_data_from_files(folder_path)
@@ -169,14 +172,19 @@ if __name__ == "__main__":
     date_time = now.strftime("%d/%m/%Y %H:%M:%S")
 
     # Логгер
-    file_name_result = f"Мониторинг UI элементов МАРМ4 {date_time} (Московское время).txt"
+    file_name_result = f"Мониторинг UI элементов МАРМ4 ({datetime.now().strftime('%Y%m%d_%H%M%S')}).txt"
     logger_app = logger.get_logger(file_name_result)
 
     # Проверка соединения с тестируемым сайтом
     if not check_website_connection(auth_url, logger_app):
         # Запись информации об ошибке и отправка по электронной почте
         logger_app.error("Соединение с сайтом не было установлено. Проверьте работоспособность сайта.")
-        send_email(sender_email, sender_password, receiver_email, subject, file_name_result)
+        sender_email = "smtp_user@stm-labs.ru"
+        sender_password = "COgNF6FR"
+        receiver_email = ["kotyukovvv@rambler.ru", "sergei.semenov@stm-labs.ru", "svetlana.okladnova@stm-labs.ru"]
+        receiver_email_string = ", ".join(receiver_email)
+        subject = f"{'🔵' if not logger.COUNTER_ERROR else '🔴'} Мониторинг UI элементов МАРМ4: {date_time} (Московское время) - Аутентификация НЕ ОСУЩЕСТВЛЕНА"
+        send_email(sender_email, sender_password, receiver_email_string, subject, file_name_result)
         sys.exit(1)
 
     # Запуск браузера
@@ -184,7 +192,23 @@ if __name__ == "__main__":
     driver = webdriver.Chrome(options=options)
 
     # Переход на страницу авторизации и авторизация
-    if not navigate_to_auth_page(driver, logger_app):
+    is_authenticated = navigate_to_auth_page(driver, logger_app)
+
+    if not is_authenticated:
+        # Завершение работы скрипта, если авторизация не прошла
+        driver.quit()
+
+        logger_app.error("Авторизация не прошла успешно.")
+        logger_app.info(f"\nВсего тестов: {logger.COUNTER_FULL}.")
+        logger_app.info(f"Успешных тестов: {logger.COUNTER_SUCCESS}.", mark=True, counter=False)
+        logger_app.error(f"Провальных тестов: {logger.COUNTER_ERROR}.", mark=True, counter=False)
+
+        sender_email = "smtp_user@stm-labs.ru"
+        sender_password = "COgNF6FR"
+        receiver_email = ["kotyukovvv@rambler.ru", "sergei.semenov@stm-labs.ru", "svetlana.okladnova@stm-labs.ru"]
+        receiver_email_string = ", ".join(receiver_email)
+        subject = f"{'🔵' if not logger.COUNTER_ERROR else '🔴'} Мониторинг UI элементов МАРМ4: {date_time} (Московское время) - Аутентификация НЕ ОСУЩЕСТВЛЕНА"
+        send_email(sender_email, sender_password, receiver_email_string, subject, file_name_result)
         sys.exit()
 
     # Проход по каждой странице и проверка элемента
@@ -194,13 +218,21 @@ if __name__ == "__main__":
     # Закрытие браузера
     driver.quit()
 
+    sender_email = "smtp_user@stm-labs.ru"
+    sender_password = "COgNF6FR"
+    # Определение получателей в зависимости от наличия ошибок
+    if logger.COUNTER_ERROR:
+        receivers = ["kotyukovvv@rambler.ru", "sergei.semenov@stm-labs.ru", "svetlana.okladnova@stm-labs.ru"]
+    else:
+        receivers = ["kotyukovvv@rambler.ru"]
+    receiver_email_string = ", ".join(receiver_email)
+    subject = f"{'🔵' if not logger.COUNTER_ERROR else '🔴'} Мониторинг UI элементов МАРМ4: {date_time} (Московское время)"
 
     # Сводная информация о проверках
     logger_app.info(f"\nВсего тестов: {logger.COUNTER_FULL}.")
     logger_app.info(f"Успешных тестов: {logger.COUNTER_SUCCESS}.", mark=True, counter=False)
     logger_app.error(f"Провальных тестов: {logger.COUNTER_ERROR}.", mark=True, counter=False)
-
-    send_email(sender_email, sender_password, receiver_email, subject, file_name_result)
+    send_email(sender_email, sender_password, receiver_email_string, subject, file_name_result)
 
 
 
