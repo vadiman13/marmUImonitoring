@@ -1,0 +1,12 @@
+[
+  {
+    "url": "https://marm.nalog.gov.ru:9085/marm/reports",
+    "page_name": "Отчеты",
+    "elements": [
+      {
+        "locator": "xpath#//div[@class='mat-tab-labels']",
+        "name": "Селектор выбора категории отчетов"
+      }
+    ]
+  }
+]

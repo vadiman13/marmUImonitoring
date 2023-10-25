@@ -1,0 +1,16 @@
+[
+  {
+    "url": "https://marm.nalog.gov.ru:9085/marm/economics/indicators/basketcost",
+    "page_name": "Экономика-Индикаторы-Доля корзины в затратах",
+    "elements": [
+      {
+        "locator": "class_name#dx-visibility-change-handler",
+        "name": "График \"Доля продуктовой корзины в затратах населения\""
+      },
+      {
+        "locator": "css_selector#[id*=\"area\"]",
+        "name": "Тепловая карта регионов"
+      }
+    ]
+  }
+]

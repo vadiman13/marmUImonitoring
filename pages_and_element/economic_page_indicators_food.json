@@ -1,0 +1,20 @@
+[
+  {
+    "url": "https://marm.nalog.gov.ru:9085/marm/economics/indicators/food",
+    "page_name": "Экономика-Индикаторы-Доля продуктов питания",
+    "elements": [
+      {
+        "locator": "id#food-population-percentage",
+        "name": "Диаграмма \"Процент еды из общих затрат населения\""
+      },
+      {
+        "locator": "id#food-costs-per-capita",
+        "name": "Диаграмма \"Затраты на еду на человека\""
+      },
+      {
+        "locator": "css_selector#[id*=\"area\"]",
+        "name": "Тепловая карта регионов"
+      }
+    ]
+  }
+]

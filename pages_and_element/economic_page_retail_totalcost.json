@@ -1,0 +1,32 @@
+[
+  {
+    "url": "https://marm.nalog.gov.ru:9085/marm/economics/retail/totalcost",
+    "page_name": "Экономика-Розница-Стоимость",
+    "elements": [
+      {
+        "locator": "id#avg-categories-cost-chart",
+        "name": "График \"Средняя стоимость продуктовой корзины по категориям\""
+      },
+      {
+        "locator": "id#date-range-selector",
+        "name": "Селектор выбора даты статистики"
+      },
+      {
+        "locator": "id#grow-drivers-chart",
+        "name": "График \"Основные драйверы роста стоимости продуктовой корзины\""
+      },
+      {
+        "locator": "id#map-area",
+        "name": "Тепловая карта регионов"
+      },
+      {
+        "locator": "id#avg-regions-cost-chart",
+        "name": "График \"Средняя стоимость продуктовой корзины по регионам\""
+      },
+      {
+        "locator": "id#avg-categories-chart",
+        "name": "Диаграмма \"Товар по категориям\""
+      }
+    ]
+  }
+]

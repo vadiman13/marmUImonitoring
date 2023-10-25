@@ -1,0 +1,24 @@
+[
+  {
+    "url": "https://marm.nalog.gov.ru:9085/marm/economics/indicators/tobaccocost",
+    "page_name": "Экономика-Индикаторы-Доля табака в затратах",
+    "elements": [
+      {
+        "locator": "class_name#dx-visibility-change-handler",
+        "name": "Диаграмма \"Доля табачной продукции в общих затратах населения\" (выручка)"
+      },
+      {
+        "locator": "css_selector#[id*=\"area\"]",
+        "name": "Тепловая карта выручки регионов (выручка)"
+      },
+      {
+        "locator": "class_name#dx-visibility-change-handler",
+        "name": "Диаграмма \"Доля табачной продукции в общих затратах населения\" (Пачек в месяц)"
+      },
+      {
+        "locator": "css_selector#[id*=\"area\"]",
+        "name": "Тепловая карта регионов (Пачек в месяц)"
+      }
+    ]
+  }
+]

@@ -1,0 +1,40 @@
+[
+  {
+    "url": "https://marm.nalog.gov.ru:9085/marm/economics/tec",
+    "page_name": "Экономика-ТЭК",
+    "elements": [
+      {
+        "locator": "id#total-cost-chart",
+        "name": "Диаграмма \"Общая выручка\""
+      },
+      {
+        "locator": "id#cost-taxation-chart",
+        "name": "Диаграмма \"По типу налогооблажения\""
+      },
+      {
+        "locator": "id#avg-per-liter-chart",
+        "name": "График Средняя цена за литр"
+      },
+      {
+        "locator": "id#range-selector",
+        "name": "Селектор изменения даты статистики"
+      },
+      {
+        "locator": "id#cost-fuel-type-chart",
+        "name": "График общей выручки по типам топлива"
+      },
+      {
+        "locator": "id#volume-fuel-type-chart",
+        "name": "График общего литража по типам топлива"
+      },
+      {
+        "locator": "id#regions-map",
+        "name": "Тепловая карта"
+      },
+      {
+        "locator": "id#taxpayers-top-chart",
+        "name": "ТОП 50 НП"
+      }
+    ]
+  }
+]

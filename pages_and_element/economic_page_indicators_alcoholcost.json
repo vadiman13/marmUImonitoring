@@ -1,0 +1,24 @@
+[
+  {
+    "url": "https://marm.nalog.gov.ru:9085/marm/economics/indicators/alcoholcost",
+    "page_name": "Экономика-Индикаторы-Доля алкоголя в затратах",
+    "elements": [
+      {
+        "locator": "class_name#dx-visibility-change-handler",
+        "name": "Диаграмма \"Доля алкоголя в общих затратах населения\" (Выручка)"
+      },
+      {
+        "locator": "css_selector#[id*=\"area\"]",
+        "name": "Тепловая карта выручки регионов (Выручка)"
+      },
+      {
+        "locator": "class_name#dx-visibility-change-handler",
+        "name": "Диаграмма \"Доля алкоголя в общих затратах населения\" (Литров в месяц)"
+      },
+      {
+        "locator": "css_selector#[id*=\"area\"]",
+        "name": "Тепловая карта регионов (Литров в месяц)"
+      }
+    ]
+  }
+]

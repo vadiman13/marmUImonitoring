@@ -1,0 +1,20 @@
+[
+  {
+    "url": "https://marm.nalog.gov.ru:9085/marketon/",
+    "page_name": "Контроль-Рынки",
+    "elements": [
+      {
+        "locator": "class_name#market-section",
+        "name": "Плашка статистики рынков"
+      },
+      {
+        "locator": "xpath#//div[contains(@class, \"filters\") and contains(@class, \"filters--market\")]",
+        "name": "Панель фильтров"
+      },
+      {
+        "locator": "class_name#table",
+        "name": "Таблица рынков"
+      }
+    ]
+  }
+]

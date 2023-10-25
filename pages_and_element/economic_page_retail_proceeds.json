@@ -1,0 +1,24 @@
+[
+  {
+    "url": "https://marm.nalog.gov.ru:9085/marm/economics/retail/consuming",
+    "page_name": "Экономика-Розница-Объем потребления",
+    "elements": [
+      {
+        "locator": "id#avg-price-chart",
+        "name": "График \"Общая выручка выбранных категорий\""
+      },
+      {
+        "locator": "id#date-range-selector",
+        "name": "Селектор выбора даты статистики"
+      },
+      {
+        "locator": "id#avg-regions-cost-chart",
+        "name": "Диаграмма \"Выручка по регионам\""
+      },
+      {
+        "locator": "id#map-area",
+        "name": "Тепловая карта регионов"
+      }
+    ]
+  }
+]

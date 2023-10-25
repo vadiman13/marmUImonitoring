@@ -1,0 +1,20 @@
+[
+  {
+    "url": "https://marm.nalog.gov.ru:9085/marm/economics/indicators/basketdynamic",
+    "page_name": "Экономика-Индикаторы-Доля стоимости корзины",
+    "elements": [
+      {
+        "locator": "class_name#dx-visibility-change-handler",
+        "name": "Диаграмма \"Динамика изменения стоимости продуктовой корзины\""
+      },
+      {
+        "locator": "id#range-selector",
+        "name": "Селектор выбора даты предоставления статистики"
+      },
+      {
+        "locator": "class_name#basket-products-chart",
+        "name": "Диаграмма \"Статистика изменения цены по конкретным продуктам\""
+      }
+    ]
+  }
+]

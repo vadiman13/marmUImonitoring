@@ -1,0 +1,12 @@
+[
+  {
+    "url": "https://marm.nalog.gov.ru:9085/marm/statistic/geochecks",
+    "page_name": "Статистика-Геочеки",
+    "elements": [
+      {
+        "locator": "id#root",
+        "name": "Окно 'Презентационная аналитика'"
+      }
+    ]
+  }
+]

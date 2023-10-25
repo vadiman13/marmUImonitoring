@@ -1,0 +1,40 @@
+[
+  {
+    "url": "https://marm.nalog.gov.ru:9085/marm/statistic/main",
+    "page_name": "Статистика-Основная",
+    "elements": [
+      {
+        "locator": "id#cost-action-type-chart",
+        "name": "Диаграмма 'Выручка по видам деятельности'"
+      },
+      {
+        "locator": "id#cost-taxation-chart",
+        "name": "Диаграмма 'Выручка по типам налогообложения'"
+      },
+      {
+        "locator": "id#avg-check-chart",
+        "name": "График среднего чека"
+      },
+      {
+        "locator": "id#total-proceeds-chart",
+        "name": "График 'Общая выручка'"
+      },
+      {
+        "locator": "id#taxpayers-top-chart",
+        "name": "ТОП 100 НП"
+      },
+      {
+        "locator": "id#total-nds-day-chart",
+        "name": "График общего НДС в день"
+      },
+      {
+        "locator": "id#regions-map",
+        "name": "Тепловая карта регионов"
+      },
+      {
+        "locator": "id#regions-map",
+        "name": "Селектор выбора вкладки статистики"
+      }
+    ]
+  }
+]
