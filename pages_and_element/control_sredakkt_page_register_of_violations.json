@@ -1,0 +1,24 @@
+[
+  {
+    "url": "https://marm.nalog.gov.ru:9085/violation/register",
+    "page_name": "Контроль-Среда ККТ-Реестр нарушений",
+    "elements": [
+      {
+        "locator": "xpath#//div[contains(@class, 'sc-kbhJrz') and contains(@class, 'kYwfTd')]",
+        "name": "Плашка фильтров таблицы" 
+      },
+      {
+        "locator": "xpath#//div[contains(@class, 'sc-jnOGJG') and contains(@class, 'eALfFX')]",
+        "name": "Таблица" 
+      },
+      {
+        "locator": "xpath#//div[contains(@class, 'sc-fxwrCY') and contains(@class, 'fTYTfl')]",
+        "name": "Кнопка 'Создать информационное письмо'" 
+      },
+      {
+        "locator": "xpath#//div[contains(@class, 'sc-hwdzOV') and contains(@class, 'ATWJM')]",
+        "name": "Пагинация таблицы" 
+      }
+    ]
+  }
+]

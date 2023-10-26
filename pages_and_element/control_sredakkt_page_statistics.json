@@ -1,0 +1,20 @@
+[
+  {
+    "url": "https://marm.nalog.gov.ru:9085/violation/statistics",
+    "page_name": "Контроль-Среда ККТ-Статистика",
+    "elements": [
+      {
+        "locator": "xpath#//div[contains(@class, 'sc-cTTdyq') and contains(@class, 'hLOtUe')]",
+        "name": "Плашка фильтров страницы" 
+      },
+      {
+        "locator": "xpath#//div[contains(@class, 'sc-fscmHZ') and contains(@class, 'gtDCsn')]",
+        "name": "Кнопка 'Отчет по нарушениям'" 
+      },
+      {
+        "locator": "xpath#//div[contains(@class, 'sc-iowXnY') and contains(@class, 'ihcwaI')]",
+        "name": "Блок со статистикой" 
+      }
+    ]
+  }
+]
