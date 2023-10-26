@@ -22,11 +22,8 @@ from utils import logger
 import requests
 import sys
 
-moscow_tz = pytz.timezone('Europe/Moscow')
-now = datetime.now(moscow_tz)
-date_time = now.strftime("(%Y%m%d_%H%M%S)")
-# Изменение формата имени файла
-file_name_result = f"Мониторинг UI элементов МАРМ4 {date_time}.txt"
+
+file_name_result = f"Мониторинг UI элементов МАРМ4 ({datetime.now().strftime('%Y%m%d_%H%M%S')}).txt"
 logger_app = logger.get_logger(file_name_result)
 
 CONNECTION_TIMEOUT = 40
@@ -35,13 +32,8 @@ auth_url = "https://marm.nalog.gov.ru:9085/auth/"
 # Параметры письма
 sender_email = "smtp_user@stm-labs.ru"
 sender_password = "COgNF6FR"
-# Изменение списка получателей в зависимости от наличия ошибок
-if not logger.COUNTER_ERROR:
-    receiver_email = ["kotyukovvv@rambler.ru"]
-else:
-    receiver_email = ["kotyukovvv@rambler.ru", "svetlana.okladnova@stm-labs.ru", "kotyukovvv3@rambler.ru"]
+receiver_email = ["kotyukovvv@rambler.ru"]
 receiver_email_string = ", ".join(receiver_email)
-# Изменение темы письма в зависимости от наличия ошибок
 subject = f"{'🔵' if not logger.COUNTER_ERROR else '🔴'} Мониторинг UI элементов МАРМ4"
 
 
@@ -88,7 +80,7 @@ def get_page_data_from_files(folder_path):
 # функция проверки элементов на странице
 def navigate_to_auth_page(driver, logger_app):
     auth_form_locator = (By.XPATH, '//*[@id="root"]/div/div[1]/main/div/form')
-    auth_success_url = "https://marm.nalog.gov.ru:9085/marm/"  # Ожидаемая часть URL после успешной авторизации
+    auth_success_url = "https://marm.nalog.gov.ru:9085/marm/map-clean"  # Ожидаемая часть URL после успешной авторизации
 
     try:
         driver.get(auth_url)
@@ -168,17 +160,17 @@ if __name__ == "__main__":
     folder_path = "pages_and_element"
     pages = get_page_data_from_files(folder_path)
 
-    # Получение текущей даты и времени по Московскому времени
-    moscow_tz = pytz.timezone('Europe/Moscow')
-    now = datetime.now(moscow_tz)
-    date_time = now.strftime("(%Y%m%d_%H%M%S)")
-    # Изменение формата имени файла
-    file_name_result = f"Мониторинг UI элементов МАРМ4 {date_time}.txt"
-    logger_app = logger.get_logger(file_name_result)
-
     # Создание объекта MIMEMultipart
     msg = MIMEMultipart()
 
+    # Получение текущей даты и времени по Московскому времени
+    moscow_tz = pytz.timezone('Europe/Moscow')
+    now = datetime.now(moscow_tz)
+    date_time = now.strftime("%d/%m/%Y %H:%M:%S")
+
+    # Логгер
+    file_name_result = f"Мониторинг UI элементов МАРМ4 {date_time} (Московское время).txt"
+    logger_app = logger.get_logger(file_name_result)
 
     # Проверка соединения с тестируемым сайтом
     if not check_website_connection(auth_url, logger_app):
@@ -208,17 +200,8 @@ if __name__ == "__main__":
     logger_app.info(f"Успешных тестов: {logger.COUNTER_SUCCESS}.", mark=True, counter=False)
     logger_app.error(f"Провальных тестов: {logger.COUNTER_ERROR}.", mark=True, counter=False)
 
-    subject = f"{'🔵' if not logger.COUNTER_ERROR else '🔴'} Мониторинг UI элементов МАРМ4"
+    send_email(sender_email, sender_password, receiver_email, subject, file_name_result)
 
-    # Изменение списка получателей в зависимости от наличия ошибок
-    if not logger.COUNTER_ERROR:
-        receiver_email = ["kotyukovvv@rambler.ru"]
-    else:
-        receiver_email = ["kotyukovvv@rambler.ru", "kotyukovvv2@rambler.ru", "kotyukovvv3@rambler.ru"]
-    receiver_email_string = ", ".join(receiver_email)
-
-    # Функция отправки письма
-    send_email(sender_email, sender_password, receiver_email_string, subject, file_name_result)
 
 
 
