@@ -35,11 +35,13 @@ auth_url = "https://marm.nalog.gov.ru:9085/auth/"
 # Параметры письма
 sender_email = "smtp_user@stm-labs.ru"
 sender_password = "COgNF6FR"
+group_normal = ["kotyukovvv@rambler.ru"]
+group_problem = ["kotyukovvv@rambler.ru", "svetlana.okladnova@stm-labs.ru"]
 # Изменение списка получателей в зависимости от наличия ошибок
 if not logger.COUNTER_ERROR:
-    receiver_email = ["kotyukovvv@rambler.ru"]
+    receiver_email = group_normal
 else:
-    receiver_email = ["kotyukovvv@rambler.ru", "svetlana.okladnova@stm-labs.ru", "kotyukovvv3@rambler.ru"]
+    receiver_email = group_problem
 receiver_email_string = ", ".join(receiver_email)
 # Изменение темы письма в зависимости от наличия ошибок
 subject = f"{'🔵' if not logger.COUNTER_ERROR else '🔴'} Мониторинг UI элементов МАРМ4"
@@ -184,7 +186,13 @@ if __name__ == "__main__":
     if not check_website_connection(auth_url, logger_app):
         # Запись информации об ошибке и отправка по электронной почте
         logger_app.error("Соединение с сайтом не было установлено. Проверьте работоспособность сайта.")
-        send_email(sender_email, sender_password, receiver_email, subject, file_name_result)
+        subject = f"{'🔵' if not logger.COUNTER_ERROR else '🔴'} Мониторинг UI элементов МАРМ4: СОЕДИНЕНИЕ НЕ УСТАНОВЛЕНО"
+        if not logger.COUNTER_ERROR:
+            receiver_email = group_normal
+        else:
+            receiver_email = group_problem
+        receiver_email_string = ", ".join(receiver_email)
+        send_email(sender_email, sender_password, receiver_email_string, subject, file_name_result)
         sys.exit(1)
 
     # Запуск браузера
@@ -193,6 +201,13 @@ if __name__ == "__main__":
 
     # Переход на страницу авторизации и авторизация
     if not navigate_to_auth_page(driver, logger_app):
+        subject = f"{'🔵' if not logger.COUNTER_ERROR else '🔴'} Мониторинг UI элементов МАРМ4: АВТОРИЗАЦИЯ НЕ ПРОЙДЕНА"
+        if not logger.COUNTER_ERROR:
+            receiver_email = group_normal
+        else:
+            receiver_email = group_problem
+        receiver_email_string = ", ".join(receiver_email)
+        send_email(sender_email, sender_password, receiver_email_string, subject, file_name_result)
         sys.exit()
 
     # Проход по каждой странице и проверка элемента
