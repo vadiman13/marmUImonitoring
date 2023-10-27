@@ -1,7 +1,7 @@
 [
   {
     "url": "https://marm.nalog.gov.ru:9085/marm/economics/retail/consuming",
-    "page_name": "Экономика-Розница-Объем потребления",
+    "page_name": "Экономика-Розница-Выручка",
     "elements": [
       {
         "locator": "id#avg-price-chart",
