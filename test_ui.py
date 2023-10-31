@@ -87,17 +87,22 @@ def get_page_data_from_files(folder_path):
 
     return page_data
 
-# функция проверки элементов на странице
+# функция проверки авторизации
 def navigate_to_auth_page(driver, logger_app):
     auth_form_locator = (By.XPATH, '//*[@id="root"]/div/div[1]/main/div/form')
     auth_success_url = "https://marm.nalog.gov.ru:9085/marm/"  # Ожидаемая часть URL после успешной авторизации
+
+    with open("creeds.txt") as f:
+        credentials = f.read().splitlines()
+        login = credentials[0]
+        password = credentials[1]
 
     try:
         driver.get(auth_url)
         waiter = WebDriverWait(driver, timeout=10)
         auth_form = waiter.until(EC.presence_of_element_located(auth_form_locator))
-        auth_form.find_element(By.ID, "login").send_keys("dev")
-        auth_form.find_element(By.ID, "password").send_keys("8zq8=JRxOC$/Qe+")
+        auth_form.find_element(By.ID, "login").send_keys(login)
+        auth_form.find_element(By.ID, "password").send_keys(password)
         auth_form.find_element(By.XPATH, "//button[@type='submit']").click()
         time.sleep(3)
 
@@ -114,6 +119,7 @@ def navigate_to_auth_page(driver, logger_app):
         logger_app.error("Форма авторизации не отображена! Необходимо проверить работоспособность МАРМ-4", mark=True)
         return False
 
+# Функция перехода по страницам с поиском элементов
 def navigate_and_check_element(driver, page_data, logger_app):
     url = page_data[0].get("url")
     page_name = page_data[0].get("page_name")
@@ -165,7 +171,7 @@ def check_website_connection(url, logger_app):
         return False
 
 
-
+# Скрипт проверки элементов
 if __name__ == "__main__":
     folder_path = "pages_and_element"
     pages = get_page_data_from_files(folder_path)
@@ -197,6 +203,7 @@ if __name__ == "__main__":
 
     # Запуск браузера
     options = webdriver.ChromeOptions()
+    options.add_argument("--headless")
     driver = webdriver.Chrome(options=options)
 
     # Переход на страницу авторизации и авторизация
